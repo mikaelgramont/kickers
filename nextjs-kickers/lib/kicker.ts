@@ -1,12 +1,12 @@
  export function calculateRadius(h: number, angleDeg: number) {
-    const alphaRad = angleDeg * Math.PI / 180,
-        r = h / (1 - Math.cos(alphaRad));
+    const alphaRad = angleDeg * Math.PI / 180;
+    const r = h / (1 - Math.cos(alphaRad));
     return r;
 }
 
  export function calculateLength(h: number, angleDeg: number, extraLength = 0) {
-    const angleRad = angleDeg * Math.PI / 180,
-        l = h * Math.sin(angleRad) / (1 - Math.cos(angleRad)) + extraLength;
+    const angleRad = angleDeg * Math.PI / 180;
+    const l = h * Math.sin(angleRad) / (1 - Math.cos(angleRad)) + extraLength;
     return l;
 }
 
