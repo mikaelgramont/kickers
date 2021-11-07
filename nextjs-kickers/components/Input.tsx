@@ -1,9 +1,8 @@
 import {FormEvent, useState} from "react";
 
-import styles from "./ParamForm.module.scss";
+import styles from "./Input.module.scss";
 
 interface ParamFormProps {
-    id: string;
     maxAngle: number;
     minAngle: number;
     maxHeight: number;
@@ -11,7 +10,7 @@ interface ParamFormProps {
     onUpdate: (angle: number, height: number) => void;
 }
 
-export default function ParamForm({id, maxAngle, minAngle, maxHeight, minHeight, onUpdate}: ParamFormProps) {
+export default function Input({maxAngle, minAngle, maxHeight, minHeight, onUpdate}: ParamFormProps) {
     const [height, setHeight] = useState((maxHeight + minHeight) / 2);
     const [angle, setAngle] = useState((maxAngle + minAngle) / 2);
 
@@ -28,11 +27,7 @@ export default function ParamForm({id, maxAngle, minAngle, maxHeight, minHeight,
     }
 
     return (
-        <form
-            id={id}
-            onSubmit={(e) => {
-                e.preventDefault();
-            }}
+        <div
             className={styles.root}>
             <label>
                 <span>Height</span>
@@ -44,6 +39,6 @@ export default function ParamForm({id, maxAngle, minAngle, maxHeight, minHeight,
                 <input onChange={onAngleChange} type="range" min={minAngle} max={maxAngle} step="1" name="angle" id="angle"/>
                 <span>{angle}°</span>
             </label>
-        </form>
+        </div>
     );
 }

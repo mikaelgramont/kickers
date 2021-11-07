@@ -2,8 +2,9 @@ import {useState} from "react";
 import Head from 'next/head';
 
 import {calculateRadius, calculateLength, calculateArc} from "../lib/kicker";
-import ParamForm from "../components/ParamForm";
+import Input from "../components/Input";
 import Output from "../components/Output";
+import styles from "./index.module.scss";
 
 const config = {
   maxAngle: 90,
@@ -14,7 +15,6 @@ const config = {
 
 export default function Home() {
   const title = "Kicker design in React";
-  const formId = "main-form";
 
   const [kickerParams, setKickerParams] = useState<KickerParams>({
     angle: 0,
@@ -39,12 +39,20 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className={styles.root}>
         <h1 className="title">{title}</h1>
-        <div>
-          <ParamForm id={formId} {...config} onUpdate={recomputeParams}/>
-          <Output params={kickerParams} />
-        </div>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+        }}>
+          <fieldset>
+            <legend>Desired dimensions</legend>
+            <Input {...config} onUpdate={recomputeParams}/>
+          </fieldset>
+          <fieldset>
+            <legend>Calculated dimensions</legend>
+            <Output params={kickerParams} />
+          </fieldset>
+        </form>
       </main>
     </div>
   )
