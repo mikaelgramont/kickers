@@ -1,9 +1,10 @@
 import {useState} from "react";
 import Head from 'next/head';
 
-import {calculateRadius, calculateLength, calculateArc} from "../lib/kicker";
 import Input from "../components/Input";
 import Output from "../components/Output";
+import Kicker from "../components/Kicker";
+import {calculateRadius, calculateLength, calculateArc} from "../lib/kicker";
 import styles from "./index.module.scss";
 
 const config = {
@@ -56,6 +57,8 @@ export default function Home() {
             <Output params={kickerParams} />
           </fieldset>
         </form>
+
+        <Kicker params={kickerParams} className={styles.kicker}/>
       </main>
     </div>
   )

@@ -1,9 +1,13 @@
 .root {
-  form {
-    max-width: 25rem;
+  max-width: 25rem;
 
+  form {
     fieldset {
       margin: 1rem 0;
     }
+  }
+
+  .kicker {
+    outline: 1px solid #000;
   }
 }
