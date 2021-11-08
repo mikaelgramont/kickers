@@ -1,6 +1,7 @@
 import {useMemo} from "react";
-import * as THREE from 'three'
+import * as THREE from 'three';
 import {Config} from "../lib/config";
+// import {setupUVMapping} from "../lib/utils";
 
 function buildGeometry(points: Array<THREE.Vector2>, offset: THREE.Vector3, config: Config) {
     let i, l;
@@ -10,14 +11,14 @@ function buildGeometry(points: Array<THREE.Vector2>, offset: THREE.Vector3, conf
         rectShape.lineTo(points[i].x, points[i].y);
     }
     const extrudeSettings = {
-        amount: config.model3d.sides.thickness,
+        depth: config.model3d.sides.thickness,
         bevelSize: 0,
         bevelSegments: 1,
         bevelThickness: 0
     };
     const geometry = new THREE.ExtrudeGeometry(rectShape, extrudeSettings);
 
-    // Utils.setupUVMapping(geometry);
+    // setupUVMapping(geometry);
 
     // Compensate for the extrusion amount, and move the whole shape by offset.
     let delta = new THREE.Vector3();
