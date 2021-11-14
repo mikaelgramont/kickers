@@ -8,13 +8,13 @@ import {calculateRadius, calculateLength, calculateArc} from "../lib/kicker";
 import styles from "./index.module.scss";
 
 const config = {
-  initialAngle: 45,
+  initialAngle: 55,
   maxAngle: 90,
   minAngle: 0,
-  initialHeight: 1.5,
+  initialHeight: 1.6,
   maxHeight: 5,
   minHeight: 0,
-  initialWidth: 1.0,
+  initialWidth: 1.2,
   maxWidth: 5,
   minWidth: 0.5,
 };

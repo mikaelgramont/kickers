@@ -12,7 +12,7 @@ const config = {
             'space': 0.01
         },
         'struts': {
-            'side': 0.08,
+            'thickness': 0.08,
             'smallSide': 0.04,
             'maximumDistance': 0.3
         },
