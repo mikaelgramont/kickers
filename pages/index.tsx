@@ -50,7 +50,7 @@ export default function Home() {
           </fieldset>
         </form>
 
-        <SceneContainer params={kickerParams} className={styles.kicker}/>
+         <SceneContainer params={kickerParams} className={styles.kicker}/>
       </main>
     </div>
   )

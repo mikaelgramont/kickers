@@ -1,6 +1,7 @@
 import {useMemo} from "react";
 import * as THREE from 'three';
 import {Config} from "../lib/config";
+import {useTexture} from "@react-three/drei";
 
 function buildGeometry(points: Array<THREE.Vector2>, config: Config) {
     const shape = new THREE.Shape();
@@ -30,22 +31,25 @@ interface Props {
 
 export default function Side(props: Props) {
     const {color, config, left = false, name, points, width} = props;
+
     const geometry = useMemo(
         () => buildGeometry(points, config),
         [points, config]
     );
+    const colorMap = useTexture('wood1_256.jpg');
 
-    const { thickness } = config.model3d.sides;
-    const offset = left ? - width/2 + thickness / 2: width / 2 - thickness / 2;
-    const position = new THREE.Vector3(0,0, offset);
+    const {thickness} = config.model3d.sides;
+    const offset = left ? -width / 2 + thickness / 2 : width / 2 - thickness / 2;
+    const position = new THREE.Vector3(0, 0, offset);
+
     return (
         <mesh
-            { ... props }
+            {...props}
             name={name}
             geometry={geometry}
             position={position}
         >
-            <meshStandardMaterial color={color} />
+            <meshStandardMaterial map={colorMap} />
         </mesh>
     );
 }

@@ -42,7 +42,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.11.2", "@babel/runtime@^7.13.10", "@babel/runtime@^7.14.6":
+"@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.14.6":
   version "7.16.3"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.16.3.tgz#b86f0db02a04187a3c17caa77de69840165d42d5"
   integrity sha512-WBwekcqacdY2e9AF/Q7WLFUWmdJGJTkbjqTjoMDgXkVZ3ZRUvOPsLb5KdwISoQVsbP+DQzVZW4Zhci0DvpbNTQ==
@@ -1590,14 +1590,21 @@ react-composer@^5.0.2:
   dependencies:
     prop-types "^15.6.0"
 
-react-dom@17.0.2:
-  version "17.0.2"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
-  integrity sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==
+react-dom@18.0.0-alpha-cb11155c8-20211112:
+  version "18.0.0-alpha-cb11155c8-20211112"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.0.0-alpha-cb11155c8-20211112.tgz#2a0873a157758eb4dfe5cce0acd8238635a422f6"
+  integrity sha512-LkI+PPT837+C+Zu7ECYbzscJenfq17ZukoYif++RnwtgI7AZ6xNnrKF0++i7shOcxVfMQ3UD31rXDuyABX9BQA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    scheduler "^0.20.2"
+    scheduler "0.21.0-alpha-cb11155c8-20211112"
+
+react-error-boundary@3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-3.1.4.tgz#255db92b23197108757a888b01e5b729919abde0"
+  integrity sha512-uM9uPzZJTF6wRQORmSrvOIgt4lJ9MC1sNgEOj2XGsDTRE4kmpWxg7ENK9EWNKJRMAOY9z0MuF4yIfl6gp4sotA==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
 
 react-is@17.0.2:
   version "17.0.2"
@@ -1640,10 +1647,10 @@ react-use-measure@^2.0.4:
   dependencies:
     debounce "^1.2.0"
 
-react@17.0.2:
-  version "17.0.2"
-  resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
-  integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
+react@18.0.0-alpha-cb11155c8-20211112:
+  version "18.0.0-alpha-cb11155c8-20211112"
+  resolved "https://registry.yarnpkg.com/react/-/react-18.0.0-alpha-cb11155c8-20211112.tgz#4ff08d0d5efe17f084773dbd572e080698c0179c"
+  integrity sha512-dZH1UI66WIJQanQW052jeonU6miTD69B+Yij3HhKqsa8yZIbgiSt7l8jckcpZksFhzQSHINJmYFp/yz4DTwh9w==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -1725,6 +1732,14 @@ sass@^1.43.4:
   integrity sha512-/ptG7KE9lxpGSYiXn7Ar+lKOv37xfWsZRtFYal2QHNigyVQDx685VFT/h7ejVr+R8w7H4tmUgtulsKl5YpveOg==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
+
+scheduler@0.21.0-alpha-cb11155c8-20211112:
+  version "0.21.0-alpha-cb11155c8-20211112"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.21.0-alpha-cb11155c8-20211112.tgz#80f648c9cdc3b03a5b8d39ecb26789647771a799"
+  integrity sha512-Tt40k0chfviau+lt9kT4VFToVJ8+CdkmmFg1A9hq2AE/mKjdcavsSdJZvVlOWFy+a3bUQlcSMq42F/b2NztJ5g==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 
 scheduler@^0.20.2:
   version "0.20.2"

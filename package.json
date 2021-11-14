@@ -12,8 +12,9 @@
     "@react-three/fiber": "^7.0.17",
     "@types/three": "^0.133.1",
     "next": "^12.0.3",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "18.0.0-alpha-cb11155c8-20211112",
+    "react-dom": "18.0.0-alpha-cb11155c8-20211112",
+    "react-error-boundary": "3.1.4",
     "sass": "^1.43.4",
     "three": "^0.134.0"
   },
