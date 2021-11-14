@@ -30,7 +30,7 @@ interface Props {
 }
 
 export default function Side(props: Props) {
-    const {color, config, left = false, name, points, width} = props;
+    const {config, left = false, name, points, width} = props;
 
     const geometry = useMemo(
         () => buildGeometry(points, config),
