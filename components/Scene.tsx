@@ -35,7 +35,7 @@ export default function Scene({ params: { angle, arc, length, radius, width } }:
 
             <Surface name="surface" points={surfacePoints} config={config} width={width}  color="orange"/>
 
-            {strutPropsList.map((strutProps) => <Strut {...strutProps} key={strutProps.angle} />)}
+            {strutPropsList.map((strutProps) => <Strut {...strutProps} key={`${strutProps.name}-${strutProps.angle}`} />)}
         </Bounds>
     );
 }

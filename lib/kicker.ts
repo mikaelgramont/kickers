@@ -84,38 +84,61 @@ export function calculateStrutProps(length: number, width: number, angle: number
     let i = strutCount;
     let { thickness } = config.model3d.struts;
     let strut: StrutProps;
-    let offset: THREE.Vector3;
+    const color = "pink";
 
     // We need to move the struts back a bit so they sit flush with the end
     // of the ramp.
     const offsetAngleRad = thickness / (2 * radius);
 
     while (i) {
+        let { thickness: localThickness } = config.model3d.struts;
         const currentAngle = angle * i / strutCount;
         const currentAngleRad = currentAngle * Math.PI / 180 - offsetAngleRad;
         const y = radius * (1 - Math.cos(currentAngleRad));
 
-        if (y < thickness) {
+        if (y < localThickness) {
             // Use a smaller type of strut as the big ones don't fit.
-            thickness = config.model3d.struts.smallSide;
+            localThickness = config.model3d.struts.smallSide;
         }
-        if (y < thickness) {
+        if (y < localThickness) {
             // Can't fit anything anymore.
             break;
         }
 
         strut = {
             angle: currentAngleRad,
-            color: "pink",
+            color,
             name: `strut-${i}`,
             radius,
-            thickness,
+            thickness: localThickness,
             position: new THREE.Vector3(0,0, config.model3d.sides.thickness / 2),
             width: width - config.model3d.sides.thickness * 2,
         };
         struts.push(strut);
         i--;
     }
+
+    // Add two at the base.
+    // One at the lip.
+    struts.push({
+        angle: 0,
+        color,
+        name: `strut-${++i}`,
+        radius: 0,
+        thickness,
+        position: new THREE.Vector3(length * 2 / 3, thickness, config.model3d.sides.thickness / 2),
+        width: width - config.model3d.sides.thickness * 2,
+    });
+    // One strut 2/3 of the length from entry to lip.
+    struts.push({
+        angle: 0,
+        color,
+        name: `strut-${++i}`,
+        radius: 0,
+        thickness: thickness,
+        position: new THREE.Vector3(length - thickness, thickness, config.model3d.sides.thickness / 2),
+        width: width - config.model3d.sides.thickness * 2,
+    });
 
     return struts;
 }
