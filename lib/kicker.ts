@@ -77,12 +77,9 @@ function calculatePoints (
     return points;
 };
 
-export function calculateStrutParams(length: number, width: number, angle: number, arc: number, radius: number, config: Config): Array<StrutProps> {
+export function calculateStrutProps(length: number, width: number, angle: number, arc: number, radius: number, config: Config): Array<StrutProps> {
     const struts = [];
     const strutCount = Math.ceil(arc / config.model3d.struts.maximumDistance);
-    // const {extraLength} = config.model3d.sides;
-    // const minY = config.model3d.sides.minHeight;
-    // const minX = Math.acos(1 - minY / radius);
 
     let i = strutCount;
     let { thickness } = config.model3d.struts;

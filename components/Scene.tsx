@@ -6,7 +6,7 @@ import Side from "./Side";
 import Strut from "./Strut";
 import Surface from "./Surface";
 import config from "../lib/config";
-import {calculateSidePoints, calculateStrutParams, calculateSurfacePoints} from "../lib/kicker";
+import {calculateSidePoints, calculateStrutProps, calculateSurfacePoints} from "../lib/kicker";
 
 interface Props {
     params: KickerParams;
@@ -19,11 +19,9 @@ export default function Scene({ params: { angle, arc, length, radius, width } }:
     const surfacePoints: Array<THREE.Vector2> = useMemo(
         () => calculateSurfacePoints(angle, radius, config),
         [angle, radius, width, config]);
-    const struts = useMemo(
-        () => calculateStrutParams(length, width, angle, arc, radius, config),
+    const strutPropsList = useMemo(
+        () => calculateStrutProps(length, width, angle, arc, radius, config),
         [length, width, angle, arc, radius, config]);
-
-    console.log({struts});
 
     return (
         <Bounds fit clip damping={6} margin={1.2}>
@@ -37,7 +35,7 @@ export default function Scene({ params: { angle, arc, length, radius, width } }:
 
             <Surface name="surface" points={surfacePoints} config={config} width={width}  color="orange"/>
 
-            {struts.map((strutProps) => <Strut {...strutProps} key={strutProps.angle} />)}
+            {strutPropsList.map((strutProps) => <Strut {...strutProps} key={strutProps.angle} />)}
         </Bounds>
     );
 }

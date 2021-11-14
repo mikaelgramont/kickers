@@ -51,7 +51,7 @@ export default function Input({
         <div
             className={styles.root}>
             <label>
-                <span>Height</span>
+                <span>Height: {height}m</span>
                 <input
                     onChange={onHeightChange}
                     type="range"
@@ -61,10 +61,9 @@ export default function Input({
                     step="0.1"
                     name="height"
                     id="height" />
-                <span>{height}m</span>
             </label>
             <label>
-                <span>Exit Angle</span>
+                <span>Exit Angle: {angle}°</span>
                 <input
                     onChange={onAngleChange}
                     type="range"
@@ -75,10 +74,9 @@ export default function Input({
                     name="angle"
                     id="angle"
                 />
-                <span>{angle}°</span>
             </label>
             <label>
-                <span>Width</span>
+                <span>Width: {width}m</span>
                 <input
                     onChange={onWidthChange}
                     type="range"
@@ -89,7 +87,6 @@ export default function Input({
                     name="width"
                     id="width"
                 />
-                <span>{width}m</span>
             </label>
         </div>
     );

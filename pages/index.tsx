@@ -41,7 +41,7 @@ export default function Home() {
           e.preventDefault();
         }}>
           <fieldset>
-            <legend>Desired dimensions</legend>
+            <legend>Parameters</legend>
             <Input {...params} onUpdate={updateParams}/>
           </fieldset>
           <fieldset>

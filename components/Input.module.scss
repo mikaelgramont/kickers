@@ -2,6 +2,16 @@
   label,
   output {
     display: block;
-    margin: 1rem 0;
+    margin: 0;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  label {
+    span {
+      display: block;
+    }
   }
 }

@@ -51,7 +51,7 @@ export default function Strut(props: Props) {
     const {angle, color, name, position, radius, thickness, width} = props;
     const geometry = useMemo(
         () => buildGeometry(radius, angle, width, thickness),
-        [width, thickness]
+        [radius, angle, width, thickness]
     );
 
     return (
