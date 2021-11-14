@@ -35,6 +35,25 @@ export function calculateSidePoints(angle: number, radius: number, config: Confi
     return points;
 }
 
+export function calculateSurfacePoints(angle: number, radius: number, config: Config) {
+    const points: Array<THREE.Vector2> = calculatePoints(0, 0, angle, radius, config);
+    const {thickness} = config.model3d.surface;
+
+    const steps = points.length;
+    const angleRad = angle * Math.PI / 180;
+
+    let x, y;
+    for (let l = points.length - 1, i = l; i >= 0; i--) {
+        const currentAngleRad = i / steps * angleRad;
+        x = points[i].x - thickness * Math.sin(currentAngleRad);
+        y = points[i].y + thickness * Math.cos(currentAngleRad);
+
+        points.push(new THREE.Vector2(x, y));
+    }
+
+    return points;
+}
+
 export function calculatePoints (
     minX: number, minY: number, angle: number, radius: number, config: Config
 ): Array<THREE.Vector2> {

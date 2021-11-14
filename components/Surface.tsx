@@ -2,14 +2,15 @@ import {useMemo} from "react";
 import * as THREE from 'three';
 import {Config} from "../lib/config";
 
-function buildGeometry(points: Array<THREE.Vector2>, config: Config) {
+function buildGeometry(points: Array<THREE.Vector2>, width: number, config: Config) {
     const shape = new THREE.Shape();
     shape.moveTo(points[0].x, points[0].y);
     for (let i = 1, l = points.length; i < l; i++) {
         shape.lineTo(points[i].x, points[i].y);
     }
+
     const extrudeSettings = {
-        depth: config.model3d.sides.thickness,
+        depth: width,
         bevelSize: 0,
         bevelSegments: 1,
         bevelThickness: 0
@@ -22,22 +23,22 @@ function buildGeometry(points: Array<THREE.Vector2>, config: Config) {
 interface Props {
     color: string;
     config: Config;
-    left?: boolean
     name: string;
     points: Array<THREE.Vector2>;
     width: number;
+
 }
 
-export default function Side(props: Props) {
-    const {color, config, left = false, name, points, width} = props;
+export default function Surface(props: Props) {
+    const {points, config, color, name, width} = props;
     const geometry = useMemo(
-        () => buildGeometry(points, config),
+        () => buildGeometry(points, width, config),
         [points, config]
     );
 
     const { thickness } = config.model3d.sides;
-    const offset = left ? - width/2 + thickness / 2: width / 2 - thickness / 2;
-    const position = new THREE.Vector3(0,0, offset);
+    const position = new THREE.Vector3(0,0, -width / 2 + thickness / 2);
+
     return (
         <mesh
             { ... props }
