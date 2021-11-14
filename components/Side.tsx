@@ -1,9 +1,8 @@
 import {useMemo} from "react";
 import * as THREE from 'three';
 import {Config} from "../lib/config";
-// import {setupUVMapping} from "../lib/utils";
 
-function buildGeometry(points: Array<THREE.Vector2>, offset: THREE.Vector3, config: Config) {
+function buildGeometry(points: Array<THREE.Vector2>, config: Config) {
     let i, l;
     const rectShape = new THREE.Shape();
     rectShape.moveTo(points[0].x, points[0].y);
@@ -18,37 +17,31 @@ function buildGeometry(points: Array<THREE.Vector2>, offset: THREE.Vector3, conf
     };
     const geometry = new THREE.ExtrudeGeometry(rectShape, extrudeSettings);
 
-    // setupUVMapping(geometry);
-
-    // Compensate for the extrusion amount, and move the whole shape by offset.
-    let delta = new THREE.Vector3();
-    delta.z = - config.model3d.sides.thickness / 2;
-    delta = delta.add(offset);
-    // geometry.vertices.forEach(function(vertex) {
-    //     vertex.add(delta);
-    // });
     return geometry;
 }
 
 interface Props {
     points: Array<THREE.Vector2>;
-    offset: THREE.Vector3;
+    position: THREE.Vector3;
+    color: string;
     config: Config;
+    name: string;
 }
 
 export default function Side(props: Props) {
-    const {points, offset, config} = props;
+    const {points, config, color, name, position} = props;
     const geometry = useMemo(
-        () => buildGeometry(points, offset, config),
-        [points, offset, config]
+        () => buildGeometry(points, config),
+        [points, config]
     );
     return (
         <mesh
             { ... props }
-            name="Side"
+            name={name}
             geometry={geometry}
+            position={position}
         >
-            <meshStandardMaterial color="blue" />
+            <meshStandardMaterial color={color} />
         </mesh>
     );
 }

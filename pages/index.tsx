@@ -14,26 +14,29 @@ const config = {
   initialHeight: 1.5,
   maxHeight: 5,
   minHeight: 0,
+  initialWidth: 1.0,
+  maxWidth: 5,
+  minWidth: 0.5,
 };
 
 export default function Home() {
   const title = "Kicker design in React";
 
-  const computeParams = function(height: number, angle: number) {
+  const computeParams = function(height: number, angle: number, width: number) {
     const radius = calculateRadius(height, angle);
     const length = calculateLength(height, angle);
     const arc = calculateArc(radius, angle);
     return {
-      height, angle, radius, length, arc
+      height, angle, radius, length, arc, width
     };
   };
 
-  const updateParams = function(height: number, angle: number) {
-    setKickerParams(computeParams(height, angle));
+  const updateParams = function(height: number, angle: number, width: number) {
+    setKickerParams(computeParams(height, angle, width));
   }
 
   const [kickerParams, setKickerParams] = useState<KickerParams>(
-    computeParams(config.initialHeight, config.initialAngle)
+    computeParams(config.initialHeight, config.initialAngle, config.initialWidth)
   );
 
   return (

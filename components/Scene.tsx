@@ -6,15 +6,11 @@ import Side from "./Side";
 import config from "../lib/config";
 import {calculateSidePoints} from "../lib/kicker";
 
-// TODO: figure out what to do with this;
-const width = 20;
-const offset = new THREE.Vector3(0, 0, width / 2);
-
 interface Props {
     params: KickerParams;
 }
 
-export default function Scene({ params: { angle, radius } }: Props) {
+export default function Scene({ params: { angle, radius, width } }: Props) {
     const sidePoints: Array<THREE.Vector2> = useMemo(
         () => calculateSidePoints(angle, radius, config),
         [angle, radius, config]);
@@ -26,7 +22,8 @@ export default function Scene({ params: { angle, radius } }: Props) {
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
 
-            <Side points={sidePoints} offset={offset} config={config} />
+            <Side name="side-left" points={sidePoints} config={config} position={new THREE.Vector3(0,0,width / 2)} color="red"/>
+            <Side name="side-right" points={sidePoints} config={config} position={new THREE.Vector3(0,0,- width /2)} color="green"/>
         </Bounds>
     );
 }

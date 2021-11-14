@@ -4,4 +4,5 @@ interface KickerParams {
     radius: number;
     length: number;
     arc: number;
+    width: number;
 }
