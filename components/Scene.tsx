@@ -1,5 +1,5 @@
 import {useMemo} from "react";
-import {OrbitControls, Bounds} from '@react-three/drei'
+import {OrbitControls, Stage} from '@react-three/drei'
 import * as THREE from "three";
 
 import Side from "./Side";
@@ -23,12 +23,11 @@ export default function Scene({ params: { angle, arc, length, radius, width } }:
         () => calculateStrutProps(length, width, angle, arc, radius, config),
         [length, width, angle, arc, radius, config]);
 
-    return (
-        <Bounds fit clip damping={6} margin={1.2}>
-            <OrbitControls makeDefault />
+    const contactShadow = { blur: 2, opacity: .5};
 
-            <ambientLight />
-            <pointLight position={[10, 10, 10]} />
+    return (
+        <Stage contactShadow={contactShadow}>
+            <OrbitControls makeDefault />
 
             <Side name="side-left" points={sidePoints} config={config} width={width} color="red" />
             <Side name="side-right" points={sidePoints} config={config} width={width} color="green" left/>
@@ -36,6 +35,6 @@ export default function Scene({ params: { angle, arc, length, radius, width } }:
             <Surface name="surface" points={surfacePoints} config={config} width={width}  color="orange"/>
 
             {strutPropsList.map((strutProps) => <Strut {...strutProps} key={`${strutProps.name}-${strutProps.angle}`} />)}
-        </Bounds>
+        </Stage>
     );
 }

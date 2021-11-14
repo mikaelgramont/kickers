@@ -23,13 +23,13 @@ function ErrorFallback({error, resetErrorBoundary}: {error: Error, resetErrorBou
 export default function SceneContainer({className, params}: Props) {
     return (
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <Suspense fallback={null}>
-                <div className={className}>
-                    <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }} className={styles.canvas}>
+            <div className={className}>
+                <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }} className={styles.canvas}>
+                    <Suspense fallback={null}>
                         <Scene params={params} />
-                    </Canvas>
-                </div>
-            </Suspense>
+                    </Suspense>
+                </Canvas>
+            </div>
         </ErrorBoundary>
     );
 }
