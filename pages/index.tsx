@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import Input from "../components/Input";
 import Output from "../components/Output";
-import Kicker from "../components/Kicker";
+import SceneContainer from "../components/SceneContainer";
 import {calculateRadius, calculateLength, calculateArc} from "../lib/kicker";
 import styles from "./index.module.scss";
 
@@ -40,7 +40,6 @@ export default function Home() {
     <div className="container">
       <Head>
         <title>{title}</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.root}>
@@ -58,7 +57,7 @@ export default function Home() {
           </fieldset>
         </form>
 
-        <Kicker params={kickerParams} className={styles.kicker}/>
+        <SceneContainer params={kickerParams} className={styles.kicker}/>
       </main>
     </div>
   )
