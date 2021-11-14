@@ -4,23 +4,13 @@ import Head from 'next/head';
 import Input from "../components/Input";
 import Output from "../components/Output";
 import SceneContainer from "../components/SceneContainer";
+import config from "../lib/config";
 import {calculateRadius, calculateLength, calculateArc} from "../lib/kicker";
 import styles from "./index.module.scss";
 
-const config = {
-  initialAngle: 55,
-  maxAngle: 90,
-  minAngle: 0,
-  initialHeight: 1.6,
-  maxHeight: 5,
-  minHeight: 0,
-  initialWidth: 1.2,
-  maxWidth: 5,
-  minWidth: 0.5,
-};
-
 export default function Home() {
-  const title = "Kicker design in React";
+  const {params} = config;
+  const title = "Kicker designer";
 
   const computeParams = function(height: number, angle: number, width: number) {
     const radius = calculateRadius(height, angle);
@@ -36,7 +26,7 @@ export default function Home() {
   }
 
   const [kickerParams, setKickerParams] = useState<KickerParams>(
-    computeParams(config.initialHeight, config.initialAngle, config.initialWidth)
+    computeParams(params.initialHeight, params.initialAngle, params.initialWidth)
   );
 
   return (
@@ -52,7 +42,7 @@ export default function Home() {
         }}>
           <fieldset>
             <legend>Desired dimensions</legend>
-            <Input {...config} onUpdate={updateParams}/>
+            <Input {...params} onUpdate={updateParams}/>
           </fieldset>
           <fieldset>
             <legend>Calculated dimensions</legend>
