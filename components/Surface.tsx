@@ -4,11 +4,7 @@ import {useTexture} from "@react-three/drei";
 
 import {Config} from "../lib/config";
 
-const almostEqual = (a: number, b: number, delta = .1) => {
-    return Math.abs( a - b ) < delta;
-}
-
-function setupUVMapping(geometry: THREE.ExtrudeGeometry, points: THREE.Vector2[], radius, angle, config: Config) {
+function setupUVMapping(geometry: THREE.ExtrudeGeometry, points: THREE.Vector2[], radius: number, angle: number) {
     const { array: vertices, count, itemSize: vertexStep } = geometry.getAttribute('position');
     const { array, itemSize: uvStep } = geometry.getAttribute('uv');
     const uv = array as Array<number>;
@@ -21,9 +17,8 @@ function setupUVMapping(geometry: THREE.ExtrudeGeometry, points: THREE.Vector2[]
         const currentAngle = Math.asin((vertices[vertexOffset]) / radius);
         uv[uvOffset] = currentAngle / (angle * Math.PI / 180);
 
-        // v maps to z => use +2
-        // 1.0 - x: invert the projection
-        uv[uvOffset + 1] = 1.0 - vertices[vertexOffset + 2];
+        // Stretch along the whole width
+        uv[uvOffset + 1] = vertices[vertexOffset + 2] === 0 ? 1.0 : 0;
     }
 }
 
@@ -62,7 +57,7 @@ export default function Surface(props: Props) {
         () => buildGeometry(points, width),
         [points, config]
     );
-    setupUVMapping(geometry, points, radius, angle, config);
+    setupUVMapping(geometry, points, radius, angle);
 
     const colorMap = useTexture('wood3_256.jpg');
     colorMap.wrapS = THREE.RepeatWrapping;

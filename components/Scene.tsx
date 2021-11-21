@@ -26,7 +26,7 @@ export default function Scene({ params: { angle, arc, length, radius, width } }:
     const contactShadow = { blur: 2, opacity: .5};
 
     return (
-        <Stage contactShadow={contactShadow} adjustCamera={false}>
+        <Stage contactShadow={contactShadow} adjustCamera={false} intensity={.4}>
             <OrbitControls makeDefault />
 
             <Side name="side-left" points={sidePoints} config={config} width={width} color="red" />
