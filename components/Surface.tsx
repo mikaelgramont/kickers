@@ -1,7 +1,8 @@
 import {useMemo} from "react";
 import * as THREE from 'three';
-import {Config} from "../lib/config";
 import {useTexture} from "@react-three/drei";
+
+import {Config} from "../lib/config";
 
 function buildGeometry(points: Array<THREE.Vector2>, width: number, config: Config) {
     const shape = new THREE.Shape();

@@ -7,7 +7,7 @@ function buildGeometry(radius: number, angle: number, width: number, thickness: 
     const offset = new THREE.Vector3(0, -radius - thickness/2, 0);
     const radiusYOffset = new THREE.Vector3(0, radius, 0);
 
-    const {position} = geometry.attributes;
+    const position = geometry.getAttribute('position');
     const vertex = new THREE.Vector3(0,0,0);
 
     if (angle) {
