@@ -70,7 +70,7 @@ export default function Input({
                     value={angle}
                     min={minAngle}
                     max={maxAngle}
-                    step="1"
+                    step="0.1"
                     name="angle"
                     id="angle"
                 />
