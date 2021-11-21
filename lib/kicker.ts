@@ -84,7 +84,6 @@ export function calculateStrutProps(length: number, width: number, angle: number
     let i = strutCount;
     let { thickness } = config.model3d.struts;
     let strut: StrutProps;
-    const color = "pink";
 
     // We need to move the struts back a bit so they sit flush with the end
     // of the ramp.
@@ -107,7 +106,6 @@ export function calculateStrutProps(length: number, width: number, angle: number
 
         strut = {
             angle: currentAngleRad,
-            color,
             name: `strut-${i}`,
             radius,
             thickness: localThickness,
@@ -122,7 +120,6 @@ export function calculateStrutProps(length: number, width: number, angle: number
     // One at the lip.
     struts.push({
         angle: 0,
-        color,
         name: `strut-${++i}`,
         radius: 0,
         thickness,
@@ -132,7 +129,6 @@ export function calculateStrutProps(length: number, width: number, angle: number
     // One strut 2/3 of the length from entry to lip.
     struts.push({
         angle: 0,
-        color,
         name: `strut-${++i}`,
         radius: 0,
         thickness: thickness,

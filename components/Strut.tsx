@@ -1,5 +1,6 @@
 import {useMemo} from "react";
 import * as THREE from 'three';
+import {useTexture} from "@react-three/drei";
 
 function buildGeometry(radius: number, angle: number, width: number, thickness: number) {
     const geometry = new THREE.BoxGeometry(thickness, thickness, width);
@@ -41,7 +42,6 @@ function buildGeometry(radius: number, angle: number, width: number, thickness: 
 
 export interface Props {
     angle: number;
-    color: string;
     name: string;
     position: THREE.Vector3;
     radius: number;
@@ -50,11 +50,13 @@ export interface Props {
 }
 
 export default function Strut(props: Props) {
-    const {angle, color, name, position, radius, thickness, width} = props;
+    const {angle, name, position, radius, thickness, width} = props;
     const geometry = useMemo(
         () => buildGeometry(radius, angle, width, thickness),
         [radius, angle, width, thickness]
     );
+
+    const colorMap = useTexture('wood1_256.jpg');
 
     return (
         <mesh
@@ -63,7 +65,7 @@ export default function Strut(props: Props) {
             geometry={geometry}
             position={position}
         >
-            <meshStandardMaterial color={color} />
+            <meshStandardMaterial map={colorMap} />
         </mesh>
     );
 }

@@ -60,8 +60,6 @@ export default function Surface(props: Props) {
     setupUVMapping(geometry, points, radius, angle);
 
     const colorMap = useTexture('wood3_256.jpg');
-    colorMap.wrapS = THREE.RepeatWrapping;
-    colorMap.wrapT = THREE.ClampToEdgeWrapping;
 
     const { thickness } = config.model3d.sides;
     const position = new THREE.Vector3(0,0, -width / 2 + thickness / 2);
