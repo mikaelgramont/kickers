@@ -29,7 +29,9 @@ const config = {
             maximumDistance: 0.3
         },
         surface: {
-            thickness: 0.015
+            thickness: 0.015,
+            sheetWidth: 1.2,
+            sheetLength: 2.5,
         }
     },
     units: null,

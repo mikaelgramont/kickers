@@ -6,14 +6,15 @@ import {Config} from "../lib/config";
 
 // Computes uv tuples so that the whole texture maps to a square whose size is
 // whichever is longer: height or length.
-function setupUVMapping(geometry: any) {
+function setupUVMapping(geometry: THREE.ExtrudeGeometry) {
     let maxX = -Infinity,
         minX = Infinity,
         maxY = -Infinity,
         minY = Infinity;
 
     const { array: vertices, count, itemSize: vertexStep } = geometry.getAttribute('position');
-    const { array: uv, itemSize: uvStep } = geometry.getAttribute('uv');
+    const { array, itemSize: uvStep } = geometry.getAttribute('uv');
+    const uv = array as Array<number>;
 
     for (let i = 0; i < count; i += vertexStep) {
         maxX = Math.max(maxX, vertices[i]);
@@ -50,6 +51,9 @@ function buildGeometry(points: Array<THREE.Vector2>, config: Config) {
         bevelThickness: 0
     };
     const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    // Alternative to this: pass a UVGenerator into THREE.ExtrudeGeometry options
+    // (generateTopUV for triangles on shape, generateSideWallUV for extruded quads)
+    // See https://discourse.threejs.org/t/texture-on-dynamically-created-object/2994/10
     setupUVMapping(geometry);
 
     return geometry;

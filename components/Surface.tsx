@@ -4,7 +4,30 @@ import {useTexture} from "@react-three/drei";
 
 import {Config} from "../lib/config";
 
-function buildGeometry(points: Array<THREE.Vector2>, width: number, config: Config) {
+const almostEqual = (a: number, b: number, delta = .1) => {
+    return Math.abs( a - b ) < delta;
+}
+
+function setupUVMapping(geometry: THREE.ExtrudeGeometry, points: THREE.Vector2[], radius, angle, config: Config) {
+    const { array: vertices, count, itemSize: vertexStep } = geometry.getAttribute('position');
+    const { array, itemSize: uvStep } = geometry.getAttribute('uv');
+    const uv = array as Array<number>;
+    for (let i = 0; i < count; i += 1) {
+        const vertexOffset = i * vertexStep;
+        const uvOffset = i * uvStep;
+
+        // Computing uvs separately from the geometry means we have to compute
+        // angles back from positions: not very smart.
+        const currentAngle = Math.asin((vertices[vertexOffset]) / radius);
+        uv[uvOffset] = currentAngle / (angle * Math.PI / 180);
+
+        // v maps to z => use +2
+        // 1.0 - x: invert the projection
+        uv[uvOffset + 1] = 1.0 - vertices[vertexOffset + 2];
+    }
+}
+
+function buildGeometry(points: Array<THREE.Vector2>, width: number) {
     const shape = new THREE.Shape();
     shape.moveTo(points[0].x, points[0].y);
     for (let i = 1, l = points.length; i < l; i++) {
@@ -28,18 +51,22 @@ interface Props {
     name: string;
     points: Array<THREE.Vector2>;
     width: number;
-
+    radius: number;
+    angle: number;
 }
 
 export default function Surface(props: Props) {
-    const {points, config, name, width} = props;
+    const {config, name, points, radius, angle, width} = props;
 
     const geometry = useMemo(
-        () => buildGeometry(points, width, config),
+        () => buildGeometry(points, width),
         [points, config]
     );
+    setupUVMapping(geometry, points, radius, angle, config);
 
     const colorMap = useTexture('wood3_256.jpg');
+    colorMap.wrapS = THREE.RepeatWrapping;
+    colorMap.wrapT = THREE.ClampToEdgeWrapping;
 
     const { thickness } = config.model3d.sides;
     const position = new THREE.Vector3(0,0, -width / 2 + thickness / 2);
