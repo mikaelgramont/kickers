@@ -1,4 +1,4 @@
-import {useMemo} from "react";
+import {useEffect, useMemo, useRef} from "react";
 import {ContactShadows, OrbitControls, PerspectiveCamera, useGLTF} from '@react-three/drei'
 import * as THREE from "three";
 
@@ -8,14 +8,24 @@ import Strut from "./Strut";
 import Surface from "./Surface";
 import config from "../lib/config";
 import {calculateSidePoints, calculateStrutProps, calculateSurfacePoints} from "../lib/kicker";
-import {PlaneGeometry} from "three";
+import {useFrame} from "@react-three/fiber";
+import {Camera} from "three";
 
 interface Props {
     params: KickerParams;
 }
 
-export default function Scene({ params: { angle, arc, length, radius, width } }: Props) {
-    useGLTF.preload('/board.glb')
+export default function Scene({ params: { angle, arc, height, length, radius, width } }: Props) {
+    const getCenterTarget = () => new THREE.Vector3(length * 0.8, height * 0.5, 0);
+
+    useGLTF.preload('/board.glb');
+
+    const targetRef = useRef(getCenterTarget());
+    const cameraRef = useRef<Camera>();
+
+    useEffect(() => {
+        targetRef.current = getCenterTarget();
+    }, [length, height]);
 
     const sidePoints: Array<THREE.Vector2> = useMemo(
         () => calculateSidePoints(angle, radius, config),
@@ -29,17 +39,15 @@ export default function Scene({ params: { angle, arc, length, radius, width } }:
 
     return (
         <>
-            <OrbitControls makeDefault />
-            <PerspectiveCamera makeDefault position={[length / 2, 1.7, 6]} />
-
-            <ContactShadows opacity={.5} position={[0, 0, 0]} width={10} height={10} far={20} rotation={[Math.PI / 2, 0, 0]} />
-
+            <PerspectiveCamera ref={cameraRef} makeDefault position={[-1.8, 1, 2]} />
             <directionalLight position={new THREE.Vector3(300, 10, 300)} />
             <directionalLight position={new THREE.Vector3(-100, 200, -120)} />
+            <ContactShadows opacity={.5} position={[0, 0, 0]} width={30} height={10} far={30} rotation={[Math.PI / 2, 0, 0]} />
 
-            <Board position={new THREE.Vector3(6,0,5)} rotation={new THREE.Euler(0, .75, 0)}/>
+            <OrbitControls target={targetRef.current} zoomSpeed={.3} maxPolarAngle={Math.PI / 2}/>
 
-            {/*<Board position={new THREE.Vector3(0,0,0)} rotation={new THREE.Euler(0, 0, 0)}/>*/}
+            <Board distance={width / 2}/>
+
             <group name="kicker">
                 <Side name="side-left" points={sidePoints} config={config} width={width} color="red" />
                 <Side name="side-right" points={sidePoints} config={config} width={width} color="green" left/>

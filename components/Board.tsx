@@ -2,20 +2,20 @@ import {useGLTF} from "@react-three/drei";
 import {useRef} from "react";
 import * as THREE from "three";
 
-export default function Board(props: any) {
+export default function Board({distance}: { distance: number }) {
 
     // This makes the board about 120cm long:
     const scale = .52;
     const x = 1;
     const y = 0.125;
-    const z = 2;
+    const z = distance + .8;
 
     const group = useRef();
 
     // @ts-ignore Whatever!
     const { nodes, materials } = useGLTF('/board.glb')
     return (
-        <group ref={group} {...props} dispose={null}  position={new THREE.Vector3(x,y,z)}  scale={new THREE.Vector3(scale, scale, scale)} >
+        <group ref={group} dispose={null} rotation={new THREE.Euler(0, .5, 0)} position={new THREE.Vector3(x,y,z)} scale={new THREE.Vector3(scale, scale, scale)} >
             <mesh castShadow receiveShadow geometry={nodes.Board.geometry} material={materials.Deck}>
                 <group position={[-0.04, -0.02, 0.6]} rotation={[0, 0, -Math.PI]} scale={[-1, -1, -1]}>
                     <mesh
